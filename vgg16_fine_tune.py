@@ -51,6 +51,7 @@ def VGG_16(weights_path=None):
 	model.add(Convolution2D(512, 3, 3, activation='relu'))
 	model.add(MaxPooling2D((2,2), strides=(2,2)))
 
+	# include top 因为我们只有include_top=True的权重文件
 	model.add(Flatten())
 	model.add(Dense(4096, activation='relu'))
 	model.add(Dropout(0.5))
@@ -86,13 +87,14 @@ top_model=Model(input1,output1)
 # load weights
 top_model.load_weights('G://kaggle/bottleneck_fc_model.h5')
 
-# 将两个模型合并
+# 将两个（Model型模型）模型合并
 input=model2.input   # 输入
 output=top_model(model2.output)  # 输出
 
 model = Model(input, output)
 
 plot(model,to_file='vgg16_fine_tune.png',show_shapes=True)
+
 
 # 冻结前几层  最后一个卷积模块不冻结
 for layer in model.layers[:25]:
@@ -135,6 +137,8 @@ model.fit_generator(
 	nb_val_samples=800
 	)
 
+# save weights
+model.save_weights('vgg16_fine_tune.h5')
 
 
 
