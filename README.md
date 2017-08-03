@@ -14,4 +14,4 @@ val_acc:0.95+
 # 语料下载
 为方便操作，语料我已整理出实验所需格式，
 其中train:1000+1000, validation:400+400
-百度网盘下载：
+百度网盘下载：http://pan.baidu.com/s/1qY6tc4G
